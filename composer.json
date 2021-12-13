@@ -50,4 +50,5 @@
         "aws/aws-sdk-php": "Move this package to require section to use AWS IAM authorization",
         "gmostafa/php-graphql-oqm": "To have object-to-query mapping support"
     }
+    "minimum-stability": "dev"
 }
