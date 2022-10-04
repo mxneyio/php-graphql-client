@@ -15,5 +15,7 @@ abstract class NestableObject
     /**
      * @return mixed
      */
-    protected abstract function setAsNested();
+    abstract protected function setAsNested();
+
+    abstract protected function aliasOrName(): string;
 }
