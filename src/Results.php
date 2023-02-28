@@ -37,18 +37,21 @@ class Results
      *
      * @throws QueryError
      */
-    public function __construct(ResponseInterface $response, $asArray = false)
+    public function __construct(ResponseInterface $response, bool $asArray = false)
     {
         $this->responseObject = $response;
-        $this->responseBody   = $this->responseObject->getBody()->getContents();
+        $this->responseBody   = (string) $this->responseObject->getBody();
         $this->results        = json_decode($this->responseBody, $asArray);
 
         // Check if any errors exist, and throw exception if they do
-        if ($asArray) $containsErrors = array_key_exists('errors', $this->results);
-        else $containsErrors = isset($this->results->errors);
+        if ($asArray) {
+            $containsErrors = array_key_exists('errors', $this->results);
+        }
+        else {
+            $containsErrors = isset($this->results->errors);
+        }
 
         if ($containsErrors) {
-
             // Reformat results to an array and use it to initialize exception object
             $this->reformatResults(true);
             throw new QueryError($this->results);

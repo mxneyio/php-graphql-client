@@ -60,18 +60,70 @@ class StringLiteralFormatter
      */
     public static function formatArrayForGQLQuery(array $array): string
     {
-        $arrString = '[';
+        $arrString = '{';
         $first = true;
-        foreach ($array as $element) {
+        foreach ($array as $name => $element) {
             if ($first) {
                 $first = false;
             } else {
                 $arrString .= ', ';
             }
-            $arrString .= StringLiteralFormatter::formatValueForRHS($element);
+            if (is_array($element)) {
+                $arrString .= $name . ':';
+                if (array_keys($element) !== range(0, count($element) - 1)) {
+                    $arrString .= static::formatAssociativeArray($element);
+                } else {
+                    $arrString .= static::formatSequentialArray($element);
+                }
+            } else {
+                $arrString .= $name . ':' . static::formatValueForRHS($element);
+            }
+        }
+        $arrString .= '}';
+
+        return $arrString;
+    }
+
+    /**
+     * @param $array
+     * @return string
+     */
+    public static function formatSequentialArray($array): string
+    {
+        $arrString = '[';
+        foreach ($array as $value) {
+            $arrString .= static::formatAssociativeArray($value);
         }
         $arrString .= ']';
+        return $arrString;
+    }
 
+    /**
+     * @param $array
+     * @return string
+     */
+    public static function formatAssociativeArray($array): string
+    {
+        $arrString = '{';
+        $first = true;
+        foreach ($array as $key => $val) {
+            if ($first) {
+                $first = false;
+            } else {
+                $arrString .= ', ';
+            }
+            if (is_array($val)) {
+                $arrString .= $key . ':';
+                if (array_keys($val) !== range(0, count($val) - 1)) {
+                    $arrString .= static::formatAssociativeArray($val);
+                } else {
+                    $arrString .= static::formatSequentialArray($val);
+                }
+            } else {
+                $arrString .= $key . ':' . static::formatValueForRHS($val);
+            }
+        }
+        $arrString .= '}';
         return $arrString;
     }
 

@@ -63,4 +63,9 @@ class InlineFragment extends NestableObject
     {
         // TODO: Remove this method, it's purely tech debt
     }
+
+    public function aliasOrName(): string
+    {
+        return $this->typeName;
+    }
 }

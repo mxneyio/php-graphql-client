@@ -50,7 +50,7 @@ class Query extends NestableObject
     /**
      * Stores the object alias
      *
-     * @var string
+     * @var string|null
      */
     protected $alias;
 
@@ -79,9 +79,9 @@ class Query extends NestableObject
      * GQLQueryBuilder constructor.
      *
      * @param string $fieldName if no value is provided for the field name an empty query object is assumed
-     * @param string $alias the alias to use for the query if required
+     * @param string|null $alias the alias to use for the query if required
      */
-    public function __construct(string $fieldName = '', string $alias = '')
+    public function __construct(string $fieldName = '', ?string $alias = null)
     {
         $this->fieldName     = $fieldName;
         $this->alias         = $alias;
@@ -267,6 +267,11 @@ class Query extends NestableObject
         $signatureFormat = '%s%s%s';
 
         return sprintf($signatureFormat, static::OPERATION_TYPE, $this->operationName, $this->constructVariables());
+    }
+
+    public function aliasOrName(): string
+    {
+        return empty($this->alias) ? $this->fieldName : $this->alias;
     }
 
     /**
