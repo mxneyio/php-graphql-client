@@ -14,8 +14,8 @@
     ],
     "authors": [
         {
-            "name": "Mostafa Ghoneimy",
-            "email": "emostafagh@gmail.com"
+            "name": "Michael Lundbøl",
+            "email": "miclun@mxney.io"
         }
     ],
     "autoload": {
@@ -48,7 +48,7 @@
     },
     "suggest": {
         "aws/aws-sdk-php": "Move this package to require section to use AWS IAM authorization",
-        "gmostafa/php-graphql-oqm": "To have object-to-query mapping support"
+        "mxneyio/php-graphql-oqm": "To have object-to-query mapping support"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
