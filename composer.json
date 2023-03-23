@@ -1,5 +1,5 @@
 {
-    "name": "gmostafa/php-graphql-client",
+    "name": "mxneyio/php-graphql-client",
     "description": "GraphQL client and query builder.",
     "type": "library",
     "license": "MIT",
